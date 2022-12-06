@@ -6,7 +6,7 @@ jobs:
       - image: alpine:latest
     steps:
      - run: echo hello
-  print_world:
+  print_world2:
     docker:
       - image: alpine:latest
     steps:
@@ -16,4 +16,4 @@ workflows:
   welcome:
    jobs:
     - print_hello
-    - print_world
+    - print_world2
