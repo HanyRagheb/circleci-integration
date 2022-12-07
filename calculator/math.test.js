@@ -1,7 +1,7 @@
 const math = require('./math');
 
 test('adds 1 + 2 to equal 3', () => {
-  expect(math.add(1, 2,4)).toBe(3);
+  expect(math.add(1, 2,4)).toBe(7);
 });
 
 test('adds 5 + 7 to equal 12', () => {
