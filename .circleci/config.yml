@@ -19,8 +19,8 @@ jobs:
           name: "Build the service"
           command: |
             cd calculator
-            pwd
-            ls
+            #pwd
+            #ls
             npm install
             npm run build
       - persist_to_workspace:
@@ -46,7 +46,7 @@ workflows:
   welcome:
     jobs:
       - download-secret
-      - build
-      - test:
-          requires:
-            - build
+      # - build
+      # - test:
+      #     requires:
+      #       - build
