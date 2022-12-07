@@ -1,19 +1,52 @@
 version: 2.1
 
 jobs:
-  print_hello:
-    docker:
-      - image: alpine:latest
-    steps:
-     - run: echo hello
-  print_world2:
-    docker:
-      - image: alpine:latest
-    steps:
-     - run: echo world
 
+  download-secret:
+    docker:
+      - image: alpine
+    steps:
+      - run:
+          name: "Build the service"
+          command: |
+            echo "This is my secret - $MY_SECRET"
+  build:
+    docker:
+      - image: node:19-alpine3.15
+    steps:
+      - checkout # git clone <my repo>
+      - run:
+          name: "Build the service"
+          command: |
+            cd calculator
+            pwd
+            ls
+            npm install
+            npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - calculator/node_modules
+
+
+
+  test:
+    docker:
+      - image: node:19-alpine3.15
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Test the service"
+          command: |
+            cd calculator
+            npm run test
 workflows:
   welcome:
-   jobs:
-    - print_hello
-    - print_world2
+    jobs:
+      - download-secret
+      # - build
+      # - test:
+      #     requires:
+      #       - build
