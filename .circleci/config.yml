@@ -47,6 +47,6 @@ workflows:
     jobs:
       - download-secret
       - build
-      # - test:
-      #     requires:
-      #       - build
+      - test:
+           requires:
+             - build
